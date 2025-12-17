@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   static const licence = 'Licence v1.0';
-  static const repoUrl = 'https://github.com/Coffeein0/coffeebookscoffeebooks';
+  static const repoUrl = 'https://github.com/Coffeein0/CoffeeBooks';
   static const releasesUrl = '$repoUrl/releases';
   static const licenceUrl = '$repoUrl/blob/master/LICENSE';
 
