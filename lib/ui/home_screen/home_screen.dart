@@ -39,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void openSortFilterSheet() {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    // Используем стандартный bottom sheet для всех платформ (Android + Web)
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -114,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onFabPressed() {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    // Только стандартный bottom sheet
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

@@ -286,7 +286,7 @@ Future _saveCoverToStorage(int? bookID, Uint8List? cover) async {
   }
 
   Future<bool> downloadCoverByISBN(Book book) async {
-    // На вебе или если нет директории — не сохраняем
+
     if (kIsWeb || appDocumentsPath == null) return false;
 
     if (book.isbn == null) return false;
