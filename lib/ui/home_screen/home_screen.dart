@@ -1,11 +1,8 @@
-import 'dart:io';
-import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:coffeebooks/core/constants/constants.dart';
 import 'package:coffeebooks/core/constants/enums/book_status.dart';
@@ -42,24 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void openSortFilterSheet() {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (Platform.isIOS) {
-      showCupertinoModalBottomSheet(
-        context: context,
-        expand: false,
-        builder: (_) {
-          return const SortBottomSheet();
-        },
-      );
-    } else if (Platform.isAndroid) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) {
-          return const SortBottomSheet();
-        },
-      );
-    }
+    // Используем стандартный bottom sheet для всех платформ (Android + Web)
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return const SortBottomSheet();
+      },
+    );
   }
 
   void goToDisplayScreen() {
@@ -124,31 +112,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onFabPressed() {
-    if (Platform.isIOS) {
-      showCupertinoModalBottomSheet(
-        context: context,
-        expand: false,
-        builder: (_) {
-          return AddBookSheet(
-            addManually: _addBookManually,
-            searchInOpenLibrary: _searchInOpenLibrary,
-            scanBarcode: _scanBarcode,
-          );
-        },
-      );
-    } else if (Platform.isAndroid) {
-      showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (_) {
-          return AddBookSheet(
-            addManually: _addBookManually,
-            searchInOpenLibrary: _searchInOpenLibrary,
-            scanBarcode: _scanBarcode,
-          );
-        },
-      );
-    }
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    // Только стандартный bottom sheet
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) {
+        return AddBookSheet(
+          addManually: _addBookManually,
+          searchInOpenLibrary: _searchInOpenLibrary,
+          scanBarcode: _scanBarcode,
+        );
+      },
+    );
   }
 
   Future<void> _addBookManually() async {
@@ -315,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    AppBar appBar = AppBar(
+    return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       title: const Row(
@@ -339,9 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return menuOptions.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
-                child: Text(
-                  choice,
-                ),
+                child: Text(choice),
                 onTap: () => _invokeMenuOption(choice),
               );
             }).toList();
@@ -349,17 +324,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
     );
-
-    return Platform.isAndroid
-        ? appBar
-        : PreferredSize(
-            preferredSize: Size(double.infinity, appBarHeight),
-            child: ClipRRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                child: appBar,
-              ),
-            ),
-          );
   }
 }
+

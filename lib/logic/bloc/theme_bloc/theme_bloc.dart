@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, TargetPlatform, defaultTargetPlatform;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'theme_state.dart';
@@ -15,7 +14,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           themeMode: ThemeMode.system,
           primaryColor: const Color(0xFF4B3FA7),
           fontFamily: 'Nunito',
-          useMaterialYou: Platform.isAndroid ? true : false,
+          useMaterialYou: (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) ? true : false,
           amoledDark: false,
         )) {
     on<ChangeThemeEvent>((event, emit) {
@@ -60,7 +59,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           themeMode: ThemeMode.light,
           primaryColor: Color(primaryColor ?? 0xFF4B3FA7),
           fontFamily: fontFamily ?? 'Nunito',
-          useMaterialYou: useMaterialYou ?? true,
+          useMaterialYou: useMaterialYou ?? (!kIsWeb && defaultTargetPlatform == TargetPlatform.android),
           amoledDark: amoledDark ?? false,
         );
       case 2:
@@ -68,7 +67,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           themeMode: ThemeMode.dark,
           primaryColor: Color(primaryColor ?? 0xFF4B3FA7),
           fontFamily: fontFamily ?? 'Nunito',
-          useMaterialYou: useMaterialYou ?? true,
+          useMaterialYou: useMaterialYou ?? (!kIsWeb && defaultTargetPlatform == TargetPlatform.android),
           amoledDark: amoledDark ?? false,
         );
       default:
@@ -76,7 +75,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           themeMode: ThemeMode.system,
           primaryColor: Color(primaryColor ?? 0xFF4B3FA7),
           fontFamily: fontFamily ?? 'Nunito',
-          useMaterialYou: useMaterialYou ?? true,
+          useMaterialYou: useMaterialYou ?? (!kIsWeb && defaultTargetPlatform == TargetPlatform.android),
           amoledDark: amoledDark ?? false,
         );
     }

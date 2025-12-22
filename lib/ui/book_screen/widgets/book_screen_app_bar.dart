@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,12 +30,10 @@ class BookScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog.adaptive(
-          shape: Platform.isAndroid
-              ? RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(cornerRadius),
-                )
-              : null,
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(cornerRadius),
+          ),
           title: Text(
             deleted
                 ? deletePermanently == true
@@ -48,55 +44,37 @@ class BookScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
-            Platform.isIOS
-                ? CupertinoDialogAction(
-                    onPressed: () => _deleteAction(
-                      deletePermanently: deletePermanently,
-                      book: book,
-                      context: context,
-                      deleted: deleted,
-                    ),
-                    child: Text(LocaleKeys.yes.tr()),
-                  )
-                : FilledButton(
-                    style: FilledButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(cornerRadius),
-                      ),
-                    ),
-                    onPressed: () => _deleteAction(
-                      deletePermanently: deletePermanently,
-                      book: book,
-                      context: context,
-                      deleted: deleted,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(LocaleKeys.yes.tr()),
-                    ),
-                  ),
-            Platform.isIOS
-                ? CupertinoDialogAction(
-                    isDefaultAction: true,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(LocaleKeys.no.tr()),
-                  )
-                : FilledButton.tonal(
-                    style: FilledButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(cornerRadius),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(LocaleKeys.no.tr()),
-                    ),
-                  ),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(cornerRadius),
+                ),
+              ),
+              onPressed: () => _deleteAction(
+                deletePermanently: deletePermanently,
+                book: book,
+                context: context,
+                deleted: deleted,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(LocaleKeys.yes.tr()),
+              ),
+            ),
+            FilledButton.tonal(
+              style: FilledButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(cornerRadius),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(LocaleKeys.no.tr()),
+              ),
+            ),
           ],
         );
       },

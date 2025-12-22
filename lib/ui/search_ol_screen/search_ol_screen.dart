@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -356,7 +354,7 @@ class _SearchOLScreenState extends State<SearchOLScreen>
             LocaleKeys.add_search.tr(),
             style: const TextStyle(fontSize: 18),
           ),
-          actions: [
+          actions: const [
             /*IconButton(
               onPressed: _startScanner,
               icon: const FaIcon(FontAwesomeIcons.solidCamera, size: 18),
@@ -407,15 +405,10 @@ class _SearchOLScreenState extends State<SearchOLScreen>
 
   Center _buildFirstPageProgressIndicator(BuildContext context) {
     return Center(
-      child: Platform.isIOS
-          ? CupertinoActivityIndicator(
-              radius: 20,
-              color: Theme.of(context).colorScheme.primary,
-            )
-          : LoadingAnimationWidget.staggeredDotsWave(
-              color: Theme.of(context).colorScheme.primary,
-              size: 42,
-            ),
+      child: LoadingAnimationWidget.staggeredDotsWave(
+        color: Theme.of(context).colorScheme.primary,
+        size: 42,
+      ),
     );
   }
 
@@ -489,15 +482,10 @@ class _SearchOLScreenState extends State<SearchOLScreen>
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Platform.isIOS
-            ? CupertinoActivityIndicator(
-                radius: 20,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : LoadingAnimationWidget.staggeredDotsWave(
-                color: Theme.of(context).colorScheme.primary,
-                size: 42,
-              ),
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Theme.of(context).colorScheme.primary,
+          size: 42,
+        ),
       ),
     );
   }

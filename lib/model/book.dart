@@ -236,22 +236,26 @@ class Book {
   }
 
   File? getCoverFile() {
-    final fileExists =
-        File('${appDocumentsDirectory.path}/$id.jpg').existsSync();
+    if (kIsWeb || appDocumentsPath == null) return null;
 
-    if (fileExists) {
-      return File('${appDocumentsDirectory.path}/$id.jpg');
+    final filePath = '$appDocumentsPath/$id.jpg';
+    final file = File(filePath);
+
+    if (file.existsSync()) {
+      return file;
     } else {
       return null;
     }
   }
 
   Uint8List? getCoverBytes() {
-    final fileExists =
-        File('${appDocumentsDirectory.path}/$id.jpg').existsSync();
+    if (kIsWeb || appDocumentsPath == null) return null;
 
-    if (fileExists) {
-      return File('${appDocumentsDirectory.path}/$id.jpg').readAsBytesSync();
+    final filePath = '$appDocumentsPath/$id.jpg';
+    final file = File(filePath);
+
+    if (file.existsSync()) {
+      return file.readAsBytesSync();
     } else {
       return null;
     }

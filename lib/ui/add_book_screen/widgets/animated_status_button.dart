@@ -49,7 +49,7 @@ class AnimatedStatusButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(cornerRadius),
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                : Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.5),
           ),
           child: Padding(
             padding: const EdgeInsets.all(2),

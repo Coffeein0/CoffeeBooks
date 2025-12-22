@@ -1,7 +1,7 @@
 import 'package:coffeebooks/core/constants/enums/enums.dart';
 import 'package:coffeebooks/database/database_provider.dart';
 import 'package:coffeebooks/model/book.dart';
-import 'package:sqflite/sqflite.dart';
+// ЗАМЕНА: sqflite → sqflite_common
 
 class DatabaseController {
   final dbClient = DatabaseProvider.dbProvider;
@@ -87,11 +87,12 @@ class DatabaseController {
   }) async {
     final db = await dbClient.db;
 
-    final count = Sqflite.firstIntValue(await db.rawQuery(
-      'SELECT COUNT(*) FROM booksTable WHERE status = $status AND deleted = 0',
-    ));
+    final result = await db.rawQuery(
+      'SELECT COUNT(*) AS cnt FROM booksTable WHERE status = ? AND deleted = 0',
+      [status],
+    );
 
-    return count ?? 0;
+    return result.isNotEmpty ? (result[0]['cnt'] as int?) ?? 0 : 0;
   }
 
   Future<int> updateBook(Book book) async {

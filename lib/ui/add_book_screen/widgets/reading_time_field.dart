@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -63,7 +61,7 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
                     borderRadius: BorderRadius.circular(cornerRadius),
                     color: Theme.of(context)
                         .colorScheme
-                        .surfaceVariant
+                        .surfaceContainerHighest
                         .withOpacity(0.5),
                   ),
                   child: Padding(
@@ -134,56 +132,38 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
   Future<String?> buildShowDialog(BuildContext context) {
     return showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog.adaptive(
+        builder: (BuildContext context) => AlertDialog(
             title: Text(
               LocaleKeys.set_custom_reading_time.tr(),
               style: const TextStyle(fontSize: 20),
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 25),
             actions: <Widget>[
-              Platform.isIOS
-                  ? CupertinoDialogAction(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: Text(LocaleKeys.cancel.tr()),
-                    )
-                  : FilledButton.tonal(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(cornerRadius),
-                        )),
-                      ),
-                      child: Text(LocaleKeys.cancel.tr()),
-                    ),
-              Platform.isIOS
-                  ? CupertinoDialogAction(
-                      isDefaultAction: true,
-                      onPressed: () => widget.changeReadingTime(
-                        _day.value.text,
-                        _hours.value.text,
-                        _minutes.value.text,
-                      ),
-                      child: Text(LocaleKeys.ok.tr()),
-                    )
-                  : FilledButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(cornerRadius),
-                        )),
-                      ),
-                      onPressed: () => widget.changeReadingTime(
-                        _day.value.text,
-                        _hours.value.text,
-                        _minutes.value.text,
-                      ),
-                      child: Text(LocaleKeys.ok.tr()),
-                    ),
+              FilledButton.tonal(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                style: ButtonStyle(
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(cornerRadius),
+                  )),
+                ),
+                child: Text(LocaleKeys.cancel.tr()),
+              ),
+              FilledButton(
+                style: ButtonStyle(
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(cornerRadius),
+                  )),
+                ),
+                onPressed: () => widget.changeReadingTime(
+                  _day.value.text,
+                  _hours.value.text,
+                  _minutes.value.text,
+                ),
+                child: Text(LocaleKeys.ok.tr()),
+              ),
             ],
             content: Padding(
-              padding: EdgeInsets.only(
-                top: Platform.isIOS ? 20 : 0,
-                bottom: Platform.isIOS ? 10 : 0,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -216,29 +196,19 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
   }) {
     return SizedBox(
       width: 70,
-      child: Platform.isIOS
-          ? CupertinoTextField(
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              keyboardType: TextInputType.number,
-              controller: controller,
-              maxLength: maxLength,
-              placeholder: text,
-            )
-          : TextField(
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              keyboardType: TextInputType.number,
-              controller: controller,
-              maxLength: maxLength,
-              decoration: InputDecoration(
-                labelText: text,
-                border: const OutlineInputBorder(),
-                counterText: "",
-              ),
-            ),
+      child: TextField(
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
+        keyboardType: TextInputType.number,
+        controller: controller,
+        maxLength: maxLength,
+        decoration: InputDecoration(
+          labelText: text,
+          border: const OutlineInputBorder(),
+          counterText: "",
+        ),
+      ),
     );
   }
 

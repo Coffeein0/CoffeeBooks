@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:coffeebooks/core/constants/constants.dart';
 import 'package:coffeebooks/generated/codegen_loader.g.dart';
@@ -118,6 +119,22 @@ class _SearchCoversScreenState extends State<SearchCoversScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(LocaleKeys.searchOnlineForCover.tr()),
+      ),
+      body: const Center(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Text(
+            'Image search is not available on web',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
     return Scaffold(
       appBar: AppBar(
         title: Text(

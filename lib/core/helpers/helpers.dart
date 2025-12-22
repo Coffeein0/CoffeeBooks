@@ -8,6 +8,7 @@ import 'package:blurhash/blurhash.dart' as blurhash;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:coffeebooks/core/constants/constants.dart';
 import 'package:coffeebooks/generated/codegen_loader.g.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:coffeebooks/logic/cubit/edit_book_cubit.dart';
 import 'package:coffeebooks/main.dart';
@@ -51,11 +52,16 @@ DateTime? getLatestStartDate(Book book) {
 }
 
 Future<CroppedFile?> cropImage(BuildContext context, Uint8List cover) async {
+  // На вебе image_cropper не работает — возвращаем null
+  if (kIsWeb || appTempPath == null) {
+    return null;
+  }
+
   final colorScheme = Theme.of(context).colorScheme;
 
   final tmpCoverTimestamp = DateTime.now().millisecondsSinceEpoch;
   final tmpCoverFile = File(
-    '${appTempDirectory.path}/$tmpCoverTimestamp.jpg',
+    '$appTempPath/$tmpCoverTimestamp.jpg',
   );
   await tmpCoverFile.writeAsBytes(cover);
 

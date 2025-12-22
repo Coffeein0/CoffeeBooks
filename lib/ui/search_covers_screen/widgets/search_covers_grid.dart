@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,15 +75,10 @@ class _SearchCoversGridState extends State<SearchCoversGrid> {
   ) {
     return PagedChildBuilderDelegate<String>(
       firstPageProgressIndicatorBuilder: (_) => Center(
-        child: Platform.isIOS
-            ? CupertinoActivityIndicator(
-                radius: 20,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : LoadingAnimationWidget.staggeredDotsWave(
-                color: Theme.of(context).colorScheme.primary,
-                size: 50,
-              ),
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Theme.of(context).colorScheme.primary,
+          size: 50,
+        ),
       ),
       itemBuilder: (context, imageURL, _) => InkWell(
         onTap: () async {

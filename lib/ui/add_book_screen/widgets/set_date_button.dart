@@ -44,7 +44,7 @@ class _SetDateButtonState extends State<SetDateButton> {
                 borderRadius: BorderRadius.circular(cornerRadius),
                 color: Theme.of(context)
                     .colorScheme
-                    .surfaceVariant
+                    .surfaceContainerHighest
                     .withOpacity(0.5),
               ),
               child: Padding(
