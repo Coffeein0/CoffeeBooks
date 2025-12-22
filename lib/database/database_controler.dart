@@ -2,7 +2,6 @@ import 'package:coffeebooks/core/constants/enums/enums.dart';
 import 'package:coffeebooks/database/database_provider.dart';
 import 'package:coffeebooks/model/book.dart';
 // ЗАМЕНА: sqflite → sqflite_common
-import 'package:sqflite_common/sqflite.dart';
 
 class DatabaseController {
   final dbClient = DatabaseProvider.dbProvider;

@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -63,7 +61,7 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
                     borderRadius: BorderRadius.circular(cornerRadius),
                     color: Theme.of(context)
                         .colorScheme
-                        .surfaceVariant
+                        .surfaceContainerHighest
                         .withOpacity(0.5),
                   ),
                   child: Padding(
@@ -144,7 +142,7 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
               FilledButton.tonal(
                 onPressed: () => Navigator.pop(context, 'Cancel'),
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(cornerRadius),
                   )),
                 ),
@@ -152,7 +150,7 @@ class _BookReadingTimeField extends State<BookReadingTimeField> {
               ),
               FilledButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(cornerRadius),
                   )),
                 ),

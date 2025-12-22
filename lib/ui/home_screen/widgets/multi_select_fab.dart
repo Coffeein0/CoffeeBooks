@@ -1,12 +1,9 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:coffeebooks/core/constants/enums/enums.dart';
 import 'package:coffeebooks/core/themes/app_theme.dart';
@@ -171,7 +168,7 @@ class MultiSelectFAB extends StatelessWidget {
           actions: [
             FilledButton.tonal(
               style: ButtonStyle(
-                shape: MaterialStateProperty.all(
+                shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(cornerRadius),
                   ),
@@ -187,7 +184,7 @@ class MultiSelectFAB extends StatelessWidget {
             ),
             FilledButton(
               style: ButtonStyle(
-                shape: MaterialStateProperty.all(
+                shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(cornerRadius),
                   ),
@@ -253,7 +250,7 @@ class MultiSelectFAB extends StatelessWidget {
                 ),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 labelBackgroundColor:
-                    Theme.of(context).colorScheme.surfaceVariant,
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 label: LocaleKeys.change_book_format.tr(),
                 onTap: () {
@@ -277,7 +274,7 @@ class MultiSelectFAB extends StatelessWidget {
                 ),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 labelBackgroundColor:
-                    Theme.of(context).colorScheme.surfaceVariant,
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 label: LocaleKeys.change_books_author.tr(),
                 onTap: () {
@@ -301,7 +298,7 @@ class MultiSelectFAB extends StatelessWidget {
                 ),
                 backgroundColor: Theme.of(context).colorScheme.tertiary,
                 labelBackgroundColor:
-                    Theme.of(context).colorScheme.surfaceVariant,
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 label: LocaleKeys.delete_books.tr(),
                 onTap: () => _showDeleteBooksDialog(context, selectedList),
@@ -332,7 +329,7 @@ class MultiSelectFAB extends StatelessWidget {
             Expanded(
               child: FilledButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(cornerRadius),
                     ),

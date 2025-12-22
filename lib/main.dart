@@ -1,5 +1,4 @@
-import 'dart:io' if (dart.library.html) 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
-// Импорты без dart:io
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,11 +10,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, TargetPlatform, defaultTargetPlatform;
-import 'package:sqflite_common/sqflite.dart' as sqflite;
 import 'package:sqflite_common/sqflite.dart' show databaseFactory;
 
 
-// Импорты sqflite_common
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common/sqflite.dart';
@@ -23,7 +20,6 @@ import 'package:sqflite_common/sqflite.dart';
 import 'package:coffeebooks/core/constants/constants.dart';
 import 'package:coffeebooks/core/constants/locale.dart';
 import 'package:coffeebooks/core/helpers/locale_delegates/locale_delegates.dart';
-import 'package:coffeebooks/core/helpers/old_android_http_overrides.dart';
 
 import 'package:coffeebooks/logic/bloc/challenge_bloc/challenge_bloc.dart';
 import 'package:coffeebooks/logic/bloc/open_library_search_bloc/open_library_search_bloc.dart';

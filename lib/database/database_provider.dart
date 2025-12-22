@@ -1,4 +1,3 @@
-import 'package:path/path.dart' as p;
 import 'package:sqflite_common/sqflite.dart';
 
 class DatabaseProvider {
