@@ -29,7 +29,6 @@ class _AddBookSheetState extends State<AddBookSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Показываем индикатор перетаскивания на всех платформах (включая веб)
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Container(

@@ -60,12 +60,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  // Инициализация SQLite для веба
+
   if (kIsWeb) {
     databaseFactory = databaseFactoryFfiWeb;
   }
 
-  // Android-only настройки
   if (!kIsWeb) {
     _setAndroidConfig();
   }
@@ -76,7 +75,7 @@ void main() async {
     storage = await HydratedStorage.build(
       storageDirectory: HydratedStorageDirectory(dir.path),
     );
-    appDocumentsPath = dir.path; // Сохраняем только путь как строку
+    appDocumentsPath = dir.path;
     appTempPath = (await getTemporaryDirectory()).path;
   } else {
     storage = await HydratedStorage.build(
@@ -332,7 +331,6 @@ Future<void> _setAndroidConfig() async {
     }
 
     if (sdkInt <= 25) {
-      // На старых Android устройствах могут быть проблемы с HTTPS
       // HttpOverrides.global = OldAndroidHttpOverrides(); // ignore: undefined_identifier
     }
   }

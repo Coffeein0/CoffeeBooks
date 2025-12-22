@@ -31,7 +31,6 @@ class _ReadingRowState extends State<ReadingRow> {
   void _showStartDatePicker() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    // Используем стандартный Material date picker для всех платформ
     final startDate = await showDatePicker(
       context: context,
       initialDate: widget.reading.startDate ?? DateTime.now(),

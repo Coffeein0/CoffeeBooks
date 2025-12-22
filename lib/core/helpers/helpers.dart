@@ -52,7 +52,6 @@ DateTime? getLatestStartDate(Book book) {
 }
 
 Future<CroppedFile?> cropImage(BuildContext context, Uint8List cover) async {
-  // На вебе image_cropper не работает — возвращаем null
   if (kIsWeb || appTempPath == null) {
     return null;
   }
