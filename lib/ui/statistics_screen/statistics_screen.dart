@@ -78,17 +78,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                               );
                             } else {
                               return Center(
-                                child: Platform.isIOS
-                                    ? CupertinoActivityIndicator(
-                                        radius: 20,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      )
-                                    : LoadingAnimationWidget.fourRotatingDots(
-                                        color: Theme.of(context).primaryColor,
-                                        size: 42,
-                                      ),
+                                child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: Theme.of(context).primaryColor,
+                                  size: 42,
+                                ),
                               );
                             }
                           },

@@ -38,22 +38,16 @@ class DuckDuckGoAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog.adaptive(
+    return AlertDialog(
       title: Text(
         LocaleKeys.duckDuckGoWarning.tr(),
-        style: Platform.isAndroid ? const TextStyle(fontSize: 16) : null,
+        style: const TextStyle(fontSize: 16),
       ),
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        Platform.isAndroid
-            ? _buildAndroidNoButton(context)
-            : _buildIOSNoButton(context),
-        Platform.isAndroid
-            ? _buildAndroidYesButton(context)
-            : _buildIOSYesButton(context),
-        Platform.isAndroid
-            ? _buildAndroidYesAndDontShowButton(context)
-            : _buildIOSYesAndDontShowButton(context),
+        _buildAndroidNoButton(context),
+        _buildAndroidYesButton(context),
+        _buildAndroidYesAndDontShowButton(context),
       ],
     );
   }

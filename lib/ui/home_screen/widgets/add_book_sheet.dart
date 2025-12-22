@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,21 +29,21 @@ class _AddBookSheetState extends State<AddBookSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (Platform.isAndroid)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Container(
-                  height: 5,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurfaceVariant
-                        .withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
+            // Показываем индикатор перетаскивания на всех платформах (включая веб)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurfaceVariant
+                      .withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
+            ),
             ListTile(
               title: Text(LocaleKeys.add_manually.tr()),
               leading: FaIcon(

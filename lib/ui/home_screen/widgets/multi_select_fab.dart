@@ -57,21 +57,20 @@ class MultiSelectFAB extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (Platform.isAndroid)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Container(
-                    height: 5,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurfaceVariant
-                          .withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Container(
+                  height: 5,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurfaceVariant
+                        .withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                 ),
+              ),
               const SizedBox(height: 10),
               _buildHeader(bulkEditOption),
               const SizedBox(height: 30),
@@ -160,61 +159,46 @@ class MultiSelectFAB extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        return AlertDialog.adaptive(
-          shape: Platform.isAndroid
-              ? RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(cornerRadius),
-                )
-              : null,
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(cornerRadius),
+          ),
           title: Text(
             LocaleKeys.delete_books_question.tr(),
             style: const TextStyle(fontSize: 18),
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
-            Platform.isIOS
-                ? CupertinoDialogAction(
-                    child: Text(LocaleKeys.no.tr()),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                : FilledButton.tonal(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(cornerRadius),
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(LocaleKeys.no.tr()),
-                    ),
+            FilledButton.tonal(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(cornerRadius),
                   ),
-            Platform.isIOS
-                ? CupertinoDialogAction(
-                    isDefaultAction: true,
-                    child: Text(LocaleKeys.yes.tr()),
-                    onPressed: () => _bulkDeleteBooks(context, selectedList),
-                  )
-                : FilledButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(cornerRadius),
-                        ),
-                      ),
-                    ),
-                    onPressed: () => _bulkDeleteBooks(context, selectedList),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(LocaleKeys.yes.tr()),
-                    ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(LocaleKeys.no.tr()),
+              ),
+            ),
+            FilledButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(cornerRadius),
                   ),
+                ),
+              ),
+              onPressed: () => _bulkDeleteBooks(context, selectedList),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(LocaleKeys.yes.tr()),
+              ),
+            ),
           ],
         );
       },
@@ -273,30 +257,16 @@ class MultiSelectFAB extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 label: LocaleKeys.change_book_format.tr(),
                 onTap: () {
-                  if (Platform.isIOS) {
-                    showCupertinoModalBottomSheet(
-                      context: context,
-                      expand: false,
-                      builder: (_) {
-                        return _buildBottomSheet(
-                          context,
-                          BulkEditOption.format,
-                          selectedList,
-                        );
-                      },
-                    );
-                  } else if (Platform.isAndroid) {
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return _buildBottomSheet(
-                            context,
-                            BulkEditOption.format,
-                            selectedList,
-                          );
-                        });
-                  }
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return _buildBottomSheet(
+                        context,
+                        BulkEditOption.format,
+                        selectedList,
+                      );
+                    });
                 },
               ),
               SpeedDialChild(
@@ -311,30 +281,16 @@ class MultiSelectFAB extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 label: LocaleKeys.change_books_author.tr(),
                 onTap: () {
-                  if (Platform.isIOS) {
-                    showCupertinoModalBottomSheet(
-                      context: context,
-                      expand: false,
-                      builder: (_) {
-                        return _buildBottomSheet(
-                          context,
-                          BulkEditOption.author,
-                          selectedList,
-                        );
-                      },
-                    );
-                  } else if (Platform.isAndroid) {
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return _buildBottomSheet(
-                            context,
-                            BulkEditOption.author,
-                            selectedList,
-                          );
-                        });
-                  }
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return _buildBottomSheet(
+                        context,
+                        BulkEditOption.format,
+                        selectedList,
+                      );
+                    });
                 },
               ),
               SpeedDialChild(

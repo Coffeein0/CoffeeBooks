@@ -212,35 +212,20 @@ class _CoverViewEditState extends State<CoverViewEdit> {
   showCoverLoadBottomSheet(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (Platform.isIOS) {
-      showCupertinoModalBottomSheet(
-        context: context,
-        expand: false,
-        builder: (_) {
-          return EditCoverOptions(
-            loadCoverFromStorage: () => _loadCoverFromStorage(context),
-            searchForCoverOnline: () => _searchForCoverOnline(context),
-            loadCoverFromOpenLibrary: () => _loadCoverFromOpenLibrary(context),
-            editCurrentCover: () => _editCurrentCover(context),
-          );
-        },
-      );
-    } else if (Platform.isAndroid) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        builder: (modalContext) {
-          return EditCoverOptions(
-            loadCoverFromStorage: () => _loadCoverFromStorage(context),
-            searchForCoverOnline: () => _searchForCoverOnline(context),
-            loadCoverFromOpenLibrary: () => _loadCoverFromOpenLibrary(context),
-            editCurrentCover: () => _editCurrentCover(context),
-          );
-        },
-      );
-    }
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      elevation: 0,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      builder: (modalContext) {
+        return EditCoverOptions(
+          loadCoverFromStorage: () => _loadCoverFromStorage(context),
+          searchForCoverOnline: () => _searchForCoverOnline(context),
+          loadCoverFromOpenLibrary: () => _loadCoverFromOpenLibrary(context),
+          editCurrentCover: () => _editCurrentCover(context),
+        );
+      },
+    );
   }
 
   @override

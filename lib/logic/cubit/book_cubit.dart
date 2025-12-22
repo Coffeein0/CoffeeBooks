@@ -168,12 +168,12 @@ class BookCubit extends Cubit {
     return importedBookIDs;
   }
 
-  Future _saveCoverToStorage(int? bookID, Uint8List? cover) async {
-    if (bookID == null || cover == null) return;
+Future _saveCoverToStorage(int? bookID, Uint8List? cover) async {
+  if (kIsWeb || bookID == null || cover == null || appDocumentsPath == null) return;
 
-    final file = File('${appDocumentsDirectory.path}/$bookID.jpg');
-    await file.writeAsBytes(cover);
-  }
+  final file = File('$appDocumentsPath/$bookID.jpg');
+  await file.writeAsBytes(cover);
+}
 
   Future<void> updateBook(
     Book book, {
@@ -286,13 +286,16 @@ class BookCubit extends Cubit {
   }
 
   Future<bool> downloadCoverByISBN(Book book) async {
+    // На вебе или если нет директории — не сохраняем
+    if (kIsWeb || appDocumentsPath == null) return false;
+
     if (book.isbn == null) return false;
     if (book.isbn!.isEmpty) return false;
 
     final cover = await OpenLibraryService().getCover(book.isbn!);
     if (cover == null) return false;
 
-    final file = File('${appDocumentsDirectory.path}/${book.id}.jpg');
+    final file = File('$appDocumentsPath/${book.id}.jpg');
     await file.writeAsBytes(cover);
 
     final blurHash = _generateBlurHash(cover);

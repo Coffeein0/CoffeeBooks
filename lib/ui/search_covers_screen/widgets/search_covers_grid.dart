@@ -77,15 +77,10 @@ class _SearchCoversGridState extends State<SearchCoversGrid> {
   ) {
     return PagedChildBuilderDelegate<String>(
       firstPageProgressIndicatorBuilder: (_) => Center(
-        child: Platform.isIOS
-            ? CupertinoActivityIndicator(
-                radius: 20,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : LoadingAnimationWidget.staggeredDotsWave(
-                color: Theme.of(context).colorScheme.primary,
-                size: 50,
-              ),
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Theme.of(context).colorScheme.primary,
+          size: 50,
+        ),
       ),
       itemBuilder: (context, imageURL, _) => InkWell(
         onTap: () async {

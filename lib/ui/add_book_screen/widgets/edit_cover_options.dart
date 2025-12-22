@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,21 +29,20 @@ class EditCoverOptions extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (Platform.isAndroid)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Container(
-                  height: 5,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurfaceVariant
-                        .withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurfaceVariant
+                      .withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
+            ),
             ListTile(
               title: Text(LocaleKeys.load_cover_from_phone.tr()),
               leading: FaIcon(

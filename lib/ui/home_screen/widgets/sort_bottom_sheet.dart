@@ -333,21 +333,20 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (Platform.isAndroid)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Container(
-                  height: 5,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurfaceVariant
-                        .withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurfaceVariant
+                      .withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: BlocBuilder<BookListsOrderCubit, List<BookStatus>>(

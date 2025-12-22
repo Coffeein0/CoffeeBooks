@@ -1,5 +1,5 @@
-import 'dart:io';
-
+import 'dart:io' if (dart.library.html) 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+// Импорты без dart:io
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,6 +10,15 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, TargetPlatform, defaultTargetPlatform;
+import 'package:sqflite_common/sqflite.dart' as sqflite;
+import 'package:sqflite_common/sqflite.dart' show databaseFactory;
+
+
+// Импорты sqflite_common
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common/sqflite.dart';
 
 import 'package:coffeebooks/core/constants/constants.dart';
 import 'package:coffeebooks/core/constants/locale.dart';
@@ -44,9 +53,10 @@ import 'package:coffeebooks/resources/open_library_service.dart';
 import 'package:coffeebooks/ui/home_screen/home_screen.dart';
 import 'package:coffeebooks/ui/welcome_screen/welcome_screen.dart';
 
+
 late BookCubit bookCubit;
-late Directory appDocumentsDirectory;
-late Directory appTempDirectory;
+String? appDocumentsPath;
+String? appTempPath;
 late GlobalKey<ScaffoldMessengerState> snackbarKey;
 late DateFormat dateFormat;
 
@@ -54,18 +64,32 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  _setAndroidConfig();
+  // Инициализация SQLite для веба
+  if (kIsWeb) {
+    databaseFactory = databaseFactoryFfiWeb;
+  }
 
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: HydratedStorageDirectory(
-      (await getApplicationDocumentsDirectory()).path,
-    ),
-  );
+  // Android-only настройки
+  if (!kIsWeb) {
+    _setAndroidConfig();
+  }
 
-  appDocumentsDirectory = await getApplicationDocumentsDirectory();
-  appTempDirectory = await getTemporaryDirectory();
+  HydratedStorage? storage;
+  if (!kIsWeb) {
+    final dir = await getApplicationDocumentsDirectory();
+    storage = await HydratedStorage.build(
+      storageDirectory: HydratedStorageDirectory(dir.path),
+    );
+    appDocumentsPath = dir.path; // Сохраняем только путь как строку
+    appTempPath = (await getTemporaryDirectory()).path;
+  } else {
+    storage = await HydratedStorage.build(
+      storageDirectory: HydratedStorageDirectory.web,
+    );
+  }
+  HydratedBloc.storage = storage;
+
   snackbarKey = GlobalKey<ScaffoldMessengerState>();
-
   bookCubit = BookCubit();
 
   final localeCodes = supportedLocales.map((e) => e.locale).toList();
@@ -302,7 +326,8 @@ class _CoffeeBooksAppState extends State<CoffeeBooksApp>
 }
 
 Future<void> _setAndroidConfig() async {
-  if (Platform.isAndroid) {
+
+  if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
     var sdkInt = androidInfo.version.sdkInt;
 
@@ -311,10 +336,13 @@ Future<void> _setAndroidConfig() async {
     }
 
     if (sdkInt <= 25) {
-      HttpOverrides.global = OldAndroidHttpOverrides();
+      // На старых Android устройствах могут быть проблемы с HTTPS
+      // HttpOverrides.global = OldAndroidHttpOverrides(); // ignore: undefined_identifier
     }
   }
 }
+
+
 
 Future _initDateFormat(BuildContext context) async {
   await initializeDateFormatting();

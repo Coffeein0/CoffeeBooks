@@ -60,17 +60,10 @@ class BookCardOL extends StatelessWidget {
                           placeholder: (context, url) => Center(
                             child: Container(
                               padding: const EdgeInsets.all(5),
-                              child: Platform.isIOS
-                                  ? CupertinoActivityIndicator(
-                                      radius: 20,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    )
-                                  : LoadingAnimationWidget.threeArchedCircle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      size: 24,
-                                    ),
+                              child: LoadingAnimationWidget.threeArchedCircle(
+                                color: Theme.of(context).colorScheme.primary,
+                                size: 24,
+                              ),
                             ),
                           ),
                           errorWidget: (context, url, error) =>

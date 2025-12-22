@@ -1,8 +1,5 @@
-import 'dart:io';
-
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
+import 'package:sqflite_common/sqflite.dart';
 
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
@@ -10,12 +7,9 @@ class DatabaseProvider {
   late final Future<Database> db = createDatabase();
 
   Future<Database> createDatabase() async {
-    final Directory docDirectory = await getApplicationDocumentsDirectory();
-    final String path = join(docDirectory.path, 'Books.db');
-
     return await openDatabase(
-      path,
-      version: 8,
+      'Books.db',
+      version: 1,
       onCreate: (Database db, int version) async {
         await db.execute('''
           CREATE TABLE booksTable (

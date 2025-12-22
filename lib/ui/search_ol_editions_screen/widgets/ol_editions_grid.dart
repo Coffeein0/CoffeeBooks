@@ -93,28 +93,18 @@ class OLEditionsGrid extends StatelessWidget {
             builderDelegate: PagedChildBuilderDelegate<OLEditionResult>(
               invisibleItemsThreshold: 12,
               firstPageProgressIndicatorBuilder: (_) => Center(
-                child: Platform.isIOS
-                    ? CupertinoActivityIndicator(
-                        radius: 20,
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    : LoadingAnimationWidget.staggeredDotsWave(
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 50,
-                      ),
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 50,
+                ),
               ),
               newPageProgressIndicatorBuilder: (_) => Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Platform.isIOS
-                      ? CupertinoActivityIndicator(
-                          radius: 20,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      : LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 50,
-                        ),
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 50,
+                  ),
                 ),
               ),
               itemBuilder: (context, item, index) => BookCardOLEdition(

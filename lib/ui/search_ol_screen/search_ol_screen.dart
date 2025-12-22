@@ -407,15 +407,10 @@ class _SearchOLScreenState extends State<SearchOLScreen>
 
   Center _buildFirstPageProgressIndicator(BuildContext context) {
     return Center(
-      child: Platform.isIOS
-          ? CupertinoActivityIndicator(
-              radius: 20,
-              color: Theme.of(context).colorScheme.primary,
-            )
-          : LoadingAnimationWidget.staggeredDotsWave(
-              color: Theme.of(context).colorScheme.primary,
-              size: 42,
-            ),
+      child: LoadingAnimationWidget.staggeredDotsWave(
+        color: Theme.of(context).colorScheme.primary,
+        size: 42,
+      ),
     );
   }
 
@@ -489,15 +484,10 @@ class _SearchOLScreenState extends State<SearchOLScreen>
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Platform.isIOS
-            ? CupertinoActivityIndicator(
-                radius: 20,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : LoadingAnimationWidget.staggeredDotsWave(
-                color: Theme.of(context).colorScheme.primary,
-                size: 42,
-              ),
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Theme.of(context).colorScheme.primary,
+          size: 42,
+        ),
       ),
     );
   }

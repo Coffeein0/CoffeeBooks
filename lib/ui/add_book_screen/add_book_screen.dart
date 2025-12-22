@@ -204,38 +204,22 @@ class _AddBookScreenState extends State<AddBookScreen> {
             ),
             actionsAlignment: MainAxisAlignment.spaceBetween,
             actions: [
-              Platform.isIOS
-                  ? CupertinoDialogAction(
-                      isDefaultAction: true,
-                      child: Text(LocaleKeys.waitForDownloadingToFinish.tr()),
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                    )
-                  : TextButton(
-                      child: Text(LocaleKeys.waitForDownloadingToFinish.tr()),
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                    ),
-              Platform.isIOS
-                  ? CupertinoDialogAction(
-                      isDestructiveAction: true,
-                      child: Text(LocaleKeys.saveWithoutCover.tr()),
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      },
-                    )
-                  : TextButton(
-                      child: Text(
-                        LocaleKeys.saveWithoutCover.tr(),
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.error),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      },
-                    ),
+              TextButton(
+                child: Text(LocaleKeys.waitForDownloadingToFinish.tr()),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  LocaleKeys.saveWithoutCover.tr(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.error),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
             ],
           );
         },
@@ -302,16 +286,11 @@ class _AddBookScreenState extends State<AddBookScreen> {
     if (_isCoverDownloading) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 50),
-        child: Platform.isIOS
-            ? CupertinoActivityIndicator(
-                radius: 20,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : LoadingAnimationWidget.threeArchedCircle(
+        child: LoadingAnimationWidget.threeArchedCircle(
                 color: Theme.of(context).colorScheme.primary,
                 size: 36,
               ),
-      );
+                    );
     } else {
       return const CoverViewEdit();
     }

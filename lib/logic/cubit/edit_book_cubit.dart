@@ -212,17 +212,17 @@ class EditBookCoverCubit extends Cubit<Uint8List?> {
   }
 
   deleteCover(int? bookID) async {
-    if (bookID == null) return;
+    if (kIsWeb || bookID == null || appDocumentsPath == null) return;
 
     emit(null);
 
     final coverExists = await File(
-      '${appDocumentsDirectory.path}/$bookID.jpg',
+      '$appDocumentsPath/$bookID.jpg',
     ).exists();
 
     if (coverExists) {
       await File(
-        '${appDocumentsDirectory.path}/$bookID.jpg',
+        '$appDocumentsPath/$bookID.jpg',
       ).delete();
     }
   }
